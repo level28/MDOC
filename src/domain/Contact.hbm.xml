@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 4 d?c. 2012 14:09:09 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping package="domain">
+
+	<class name="Contact" table="CONTACT_TAB">
+		<id name="id" type="long" column="CONTACT_ID">
+			<generator class="increment" />
+		</id>
+
+		<property name="firstName" type="string" />
+		<property name="lastName" type="string" />
+		<property name="email" type="string" />
+		<component name="add" class="Address">
+			<property name="Street" column="ADDRESS_STREET" type="string" />
+			<property name="City" column="ADDRESS_CITY" type="string" />
+			<property name="zip" type="string" column="ADDRESS_ZIP" />
+			<property name="Country" type="string" column="ADDRESS_COUNTRY" />
+		</component>
+		<!-- <many-to-one name="add" column="ADDRESS_ID" cascade="persist" unique="true"> 
+			</many-to-one> -->
+		<set name="books" table="JOINGROUP_TAB">
+			<key column="CONTACT_ID" />
+			<many-to-many class="ContactGroup" column="GROUP_ID" />
+		</set>
+
+		<set name="phones" cascade="persist" inverse="true">
+			<key column="CONTACT_ID" />
+			<one-to-many class="PhoneNumber" />
+		</set>
+	</class>
+</hibernate-mapping>

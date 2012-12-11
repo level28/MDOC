@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="domain">
+	<class name="ContactGroup" table="CONTACT_GROUP_TAB">
+		<id name="groupId" type="long" column="GROUP_ID">
+			<generator class="increment" />
+		</id>
+		<property name="groupName" type="string" />
+		<set name="contacts"  table="JOINGROUP_TAB"  inverse="true" lazy="true">
+			<key column="GROUP_ID" />
+			<many-to-many class="Contact" column="CONTACT_ID"/>
+		</set>
+	</class>
+</hibernate-mapping>
